@@ -1,8 +1,5 @@
-import { FunctionComponent, memo, useState } from "react";
-import { FaStar, FaHeart } from "react-icons/fa6";
-import { CiHeart } from "react-icons/ci";
-import { SlBasket } from "react-icons/sl";
-import { IoIosAddCircle } from "react-icons/io";
+import { FunctionComponent, memo, useState, useCallback } from "react";
+import { FaStar } from "react-icons/fa6";
 
 import { Product } from "../../redux/products/types";
 import { setBasket, delBasket } from "../../redux/basket/slice";
@@ -10,6 +7,7 @@ import { setFavorite, delFavorite } from "../../redux/favorite/slice";
 import phone from "../../assets/products/phone.png";
 import styles from "./Card.module.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { HeartIcon, BasketIcon } from "..";
 
 type CardProps = {
   item: Product;
@@ -22,31 +20,39 @@ const Card: FunctionComponent<CardProps> = memo(({ item }) => {
   const { favorites } = useAppSelector((state) => state.favorite);
   const dispatch = useAppDispatch();
 
-  const addBasketItem = (item: Product) => {
-    if (baskets.some((obj) => Number(obj.id) === Number(item.id))) {
-      dispatch(delBasket(item));
-      setBasketAdd(false);
-      return;
-    }
-    dispatch(setBasket(item));
-    setBasketAdd(true);
-  };
+  const addBasketItem = useCallback(
+    (item: Product) => {
+      if (baskets.some((obj) => Number(obj.id) === Number(item.id))) {
+        dispatch(delBasket(item));
+        setBasketAdd(false);
+        return;
+      }
+      dispatch(setBasket(item));
+      setBasketAdd(true);
+    },
+    [baskets, dispatch]
+  );
 
-  const addFavoriteItem = (item: Product) => {
-    if (favorites.some((obj) => Number(obj.id) === Number(item.id))) {
-      dispatch(delFavorite(item));
-      setFavoriteAdd(false);
-      return;
-    }
-    dispatch(setFavorite(item));
-    setFavoriteAdd(true);
-  };
+  const addFavoriteItem = useCallback(
+    (item: Product) => {
+      if (favorites.some((obj) => Number(obj.id) === Number(item.id))) {
+        dispatch(delFavorite(item));
+        setFavoriteAdd(false);
+        return;
+      }
+      dispatch(setFavorite(item));
+      setFavoriteAdd(true);
+    },
+    [favorites, dispatch]
+  );
+
+  const StarIcon = memo(() => <FaStar className={styles.rating__star} />);
 
   return (
     <div className={styles.card}>
       <img className={styles.card__img} src={phone} alt="phone" />
       <div className={styles.rating}>
-        <FaStar className={styles.rating__star} />
+        <StarIcon />
         <p>{item.rating}</p>
       </div>
       <div className={styles.card__description}>{item.text}</div>
@@ -56,22 +62,10 @@ const Card: FunctionComponent<CardProps> = memo(({ item }) => {
           <div className={styles.card__price_old}>{item.oldPrice}</div>
         </div>
         <button className={styles.button} onClick={() => addFavoriteItem(item)}>
-          {favoriteAdd ? (
-            <FaHeart
-              className={`${styles.button__img} ${styles.favorite_add}`}
-            />
-          ) : (
-            <CiHeart className={styles.button__img} />
-          )}
+          <HeartIcon isFavorite={favoriteAdd} />
         </button>
         <button className={styles.button} onClick={() => addBasketItem(item)}>
-          {basketAdd ? (
-            <IoIosAddCircle
-              className={`${styles.button__img} ${styles.basket_add}`}
-            />
-          ) : (
-            <SlBasket className={styles.button__img} />
-          )}
+          <BasketIcon isBasket={basketAdd} />
         </button>
       </div>
     </div>

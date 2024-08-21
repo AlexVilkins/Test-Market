@@ -74,18 +74,5 @@
     background-color: transparent;
     border-color: transparent;
     cursor: pointer;
-
-    &__img {
-      width: 25px;
-      height: 25px;
-    }
-
-    .favorite_add {
-      color: red;
-    }
-
-    .basket_add {
-      color: green;
-    }
   }
 }
