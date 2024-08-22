@@ -4,3 +4,4 @@ export { default as Card } from "./Card";
 export { default as BasketIcon } from "./BasketIcon";
 export { default as HeartIcon } from "./HeartIcon";
 export { default as ProductLoader } from "./ProductLoader";
+export { default as TabsItem } from "./TabsItem";

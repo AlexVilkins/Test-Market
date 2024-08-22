@@ -21,6 +21,7 @@ const Home: FunctionComponent = () => {
   return (
     <div>
       <Header filterVal={filterVal} onChangeFilter={onChangeFilter} />
+
       <div className="content">
         {status === "loading" &&
           [...Array(8)].map((_, index) => <ProductLoader key={index} />)}

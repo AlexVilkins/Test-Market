@@ -1,4 +1,4 @@
-import { FunctionComponent, ChangeEvent } from "react";
+import { FunctionComponent, ChangeEvent, memo } from "react";
 import { Link } from "react-router-dom";
 import {
   SlMagnifier,
@@ -20,15 +20,15 @@ const Header: FunctionComponent<HeaderProps> = ({
   filterVal,
   onChangeFilter,
 }) => {
+  const FilterIcon = memo(() => (
+    <SlMagnifier className={styles.filter__icon} />
+  ));
+
   return (
     <div className={styles.header}>
-      <Link to="/">
-        <div className={styles.header__logo}>
-          <img src={logo} alt="logo" />
-        </div>
-      </Link>
+      <img src={logo} alt="logo" />
       <div className={styles.filter}>
-        <SlMagnifier className={styles.filter__icon} />
+        <FilterIcon />
         <input
           type="text"
           placeholder="Поиск товара"
@@ -37,26 +37,21 @@ const Header: FunctionComponent<HeaderProps> = ({
         />
       </div>
       <div className={styles.panel}>
-        <div className={styles.panel__favorite}>
-          <Link to="/favorite">
-            <SlHeart className={styles.icon} />
-          </Link>
-        </div>
-        <div className={styles.panel__basket}>
-          <Link to="/basket">
-            <SlBasket className={styles.icon} />
-          </Link>
+        <Link className={styles.panel__favorite} to="/favorite">
+          <SlHeart className={styles.icon} />
+        </Link>
 
-          {/* <div>{basketPrice() > 0 ? basketPrice() : 0} руб.</div> */}
-        </div>
-        <div className={styles.panel__orders}>
+        <Link className={styles.panel__basket} to="/basket">
+          <SlBasket className={styles.icon} />
+        </Link>
+
+        <Link className={styles.panel__orders} to="/orders">
           <SlList className={styles.icon} />
-        </div>
-        <div className={styles.panel__setup}>
-          <Link to="/login">
-            <SlLogin className={styles.icon} />
-          </Link>
-        </div>
+        </Link>
+
+        <Link className={styles.panel__setup} to="/login">
+          <SlLogin className={styles.icon} />
+        </Link>
       </div>
     </div>
   );

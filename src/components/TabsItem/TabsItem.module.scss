@@ -1,0 +1,50 @@
+@import "../../scss/variables";
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 3px lightgrey solid;
+}
+
+.price {
+  display: flex;
+
+  .newPrice {
+    color: $accentColor;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .oldPrice {
+    color: grey;
+
+    font-size: 16px;
+    text-decoration: line-through;
+  }
+}
+
+.deleteItem {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  margin: 10px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+
+  .img {
+    width: 30px;
+    height: 30px;
+    color: lightgrey;
+
+    &:hover {
+      color: grey;
+      cursor: pointer;
+    }
+  }
+}

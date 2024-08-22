@@ -22,3 +22,31 @@ body {
   // grid-template-rows: 200px;
   gap: 20px;
 }
+
+.basket__container {
+  position: relative;
+}
+
+.basketClose {
+  width: 30px;
+  height: 30px;
+  color: grey;
+  border: none;
+  border-radius: 15px;
+
+  &:hover {
+    background-color: lightgrey;
+    cursor: pointer;
+  }
+}
+
+.buy {
+  position: static;
+  bottom: 0;
+  right: 0;
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 15px;
+  background-color: $accentColor;
+}

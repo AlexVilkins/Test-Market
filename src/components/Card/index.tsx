@@ -1,13 +1,19 @@
-import { FunctionComponent, memo, useState, useCallback } from "react";
+import {
+  FunctionComponent,
+  memo,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import { FaStar } from "react-icons/fa6";
 
 import { Product } from "../../redux/products/types";
 import { setBasket, delBasket } from "../../redux/basket/slice";
 import { setFavorite, delFavorite } from "../../redux/favorite/slice";
-import phone from "../../assets/products/phone.png";
-import styles from "./Card.module.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { HeartIcon, BasketIcon } from "..";
+import phone from "../../assets/products/phone.png";
+import styles from "./Card.module.scss";
 
 type CardProps = {
   item: Product;
@@ -19,6 +25,27 @@ const Card: FunctionComponent<CardProps> = memo(({ item }) => {
   const { baskets } = useAppSelector((state) => state.basket);
   const { favorites } = useAppSelector((state) => state.favorite);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    basketCheck();
+    favoriteCheck();
+  }, []);
+
+  const basketCheck = useCallback(() => {
+    if (baskets.some((obj) => Number(obj.id) === Number(item.id))) {
+      setBasketAdd(true);
+    } else {
+      setBasketAdd(false);
+    }
+  }, [baskets, item.id]);
+
+  const favoriteCheck = useCallback(() => {
+    if (favorites.some((obj) => Number(obj.id) === Number(item.id))) {
+      setFavoriteAdd(true);
+    } else {
+      setFavoriteAdd(false);
+    }
+  }, [favorites, item.id]);
 
   const addBasketItem = useCallback(
     (item: Product) => {
@@ -55,11 +82,11 @@ const Card: FunctionComponent<CardProps> = memo(({ item }) => {
         <StarIcon />
         <p>{item.rating}</p>
       </div>
-      <div className={styles.card__description}>{item.text}</div>
+      <h1 className={styles.card__description}>{item.text}</h1>
       <div className={styles.card__price}>
         <div>
-          <div className={styles.card__price_new}>{item.newPrice} Р</div>
-          <div className={styles.card__price_old}>{item.oldPrice}</div>
+          <p className={styles.card__price_new}>{item.newPrice} Р</p>
+          <p className={styles.card__price_old}>{item.oldPrice}</p>
         </div>
         <button className={styles.button} onClick={() => addFavoriteItem(item)}>
           <HeartIcon isFavorite={favoriteAdd} />

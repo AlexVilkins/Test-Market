@@ -19,9 +19,13 @@ const basket = createSlice({
         (item) => item.id !== action.payload.id
       );
     },
+
+    resetBasket(state) {
+      state.baskets = [];
+    },
   },
 });
 
-export const { setBasket, delBasket } = basket.actions;
+export const { setBasket, delBasket, resetBasket } = basket.actions;
 
 export default basket.reducer;
