@@ -45,7 +45,7 @@ const Header: FunctionComponent<HeaderProps> = ({
           <SlBasket className={styles.icon} />
         </Link>
 
-        <Link className={styles.panel__orders} to="/orders">
+        <Link className={styles.panel__orders} to="/order">
           <SlList className={styles.icon} />
         </Link>
 
