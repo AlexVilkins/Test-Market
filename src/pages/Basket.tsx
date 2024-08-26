@@ -8,6 +8,7 @@ import { Product } from "../redux/products/types";
 import { useAppDispatch } from "../redux/hooks";
 import { delBasket, resetBasket } from "../redux/basket/slice";
 import { setOrder } from "../redux/order/slice";
+import box from "../assets/empty_box.png";
 
 const Basket: FunctionComponent = () => {
   const baskets = useAppSelector((state) => state.basket.baskets);
@@ -25,7 +26,7 @@ const Basket: FunctionComponent = () => {
   };
 
   return (
-    <div className="basket__container">
+    <div className="container">
       <Link to="/">
         <button className="basketClose">
           <CloseIcon />
@@ -34,13 +35,21 @@ const Basket: FunctionComponent = () => {
 
       <h1>Корзина</h1>
 
-      {baskets.map((item) => (
-        <TabsItem key={item.id} item={item} deleteItem={deleteItem} />
-      ))}
-
-      <button className="buy" onClick={buyOrder}>
-        Заказать
-      </button>
+      {baskets.length > 0 ? (
+        <>
+          {baskets.map((item) => (
+            <TabsItem key={item.id} item={item} deleteItem={deleteItem} />
+          ))}
+          <button className="buy" onClick={buyOrder}>
+            Заказать
+          </button>
+        </>
+      ) : (
+        <div className="emptyBox">
+          <img src={box} alt="empty box" />
+          <p>Ваша орзина пуста. Добавьте что-нибудь, чтобы оформить заказ!</p>
+        </div>
+      )}
     </div>
   );
 };

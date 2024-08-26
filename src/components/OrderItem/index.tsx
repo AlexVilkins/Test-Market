@@ -11,12 +11,12 @@ type OrderItemProps = {
 
 const OrderItem: FunctionComponent<OrderItemProps> = ({ item, index }) => {
   return (
-    <div className="order__container">
+    <div className={styles.container}>
       <h2>Заказ #{index}</h2>
-      {item.map((obj) => (
-        <img src={img} />
+      {item.map(() => (
+        <img src={img} alt="phone" />
       ))}
-      <p className="order__price">
+      <p className={styles.price}>
         Сумма заказа: {item.reduce((sum, obj) => obj.newPrice + sum, 0)} руб.
       </p>
     </div>

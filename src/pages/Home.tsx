@@ -20,13 +20,15 @@ const Home: FunctionComponent = () => {
 
   return (
     <div>
-      <Header filterVal={filterVal} onChangeFilter={onChangeFilter} />
+      <Header onChangeFilter={onChangeFilter} />
 
       <div className="content">
         {status === "loading" &&
           [...Array(8)].map((_, index) => <ProductLoader key={index} />)}
         {status === "success" &&
-          items.map((item) => <Card key={item.id} item={item} />)}
+          items
+            .filter((obj) => obj.text.toLowerCase().includes(filterVal))
+            .map((item) => <Card key={item.id} item={item} />)}
       </div>
       {/* <Footer /> */}
     </div>

@@ -7,6 +7,7 @@ import { useAppSelector } from "../redux/hooks";
 import { Product } from "../redux/products/types";
 import { useAppDispatch } from "../redux/hooks";
 import { delFavorite } from "../redux/favorite/slice";
+import box from "../assets/empty_box.png";
 
 const Favorite: FunctionComponent = () => {
   const favorites = useAppSelector((state) => state.favorite.favorites);
@@ -19,7 +20,7 @@ const Favorite: FunctionComponent = () => {
   };
 
   return (
-    <div className="basket__container">
+    <div className="container">
       <Link to="/">
         <button className="basketClose">
           <CloseIcon />
@@ -28,9 +29,16 @@ const Favorite: FunctionComponent = () => {
 
       <h1>Закладки</h1>
 
-      {favorites.map((item) => (
-        <TabsItem key={item.id} item={item} deleteItem={deleteItem} />
-      ))}
+      {favorites.length > 0 ? (
+        favorites.map((item) => (
+          <TabsItem key={item.id} item={item} deleteItem={deleteItem} />
+        ))
+      ) : (
+        <div className="emptyBox">
+          <img src={box} alt="emptyBox" />
+          <p>Закладок нет!</p>
+        </div>
+      )}
     </div>
   );
 };

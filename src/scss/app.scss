@@ -19,12 +19,19 @@ body {
 .content {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  // grid-template-rows: 200px;
   gap: 20px;
 }
 
-.basket__container {
+.container {
   position: relative;
+}
+
+.emptyBox {
+  display: flex;
+  font-size: 18px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .basketClose {
@@ -49,15 +56,4 @@ body {
   border: none;
   border-radius: 15px;
   background-color: $accentColor;
-}
-
-.order__container {
-  border: 3px solid lightgrey;
-  border-radius: 10px;
-  padding: 10px;
-}
-
-.order__price {
-  font-size: 18px;
-  text-align: end;
 }

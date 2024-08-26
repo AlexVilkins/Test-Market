@@ -12,14 +12,10 @@ import styles from "./Header.module.scss";
 import logo from "../../assets/logo.png";
 
 type HeaderProps = {
-  filterVal: string;
   onChangeFilter: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Header: FunctionComponent<HeaderProps> = ({
-  filterVal,
-  onChangeFilter,
-}) => {
+const Header: FunctionComponent<HeaderProps> = ({ onChangeFilter }) => {
   const FilterIcon = memo(() => (
     <SlMagnifier className={styles.filter__icon} />
   ));
@@ -32,7 +28,6 @@ const Header: FunctionComponent<HeaderProps> = ({
         <input
           type="text"
           placeholder="Поиск товара"
-          value={filterVal}
           onChange={onChangeFilter}
         />
       </div>

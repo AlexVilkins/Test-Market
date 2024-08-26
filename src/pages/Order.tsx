@@ -4,6 +4,7 @@ import { FaArrowLeft } from "react-icons/fa";
 
 import { useAppSelector } from "../redux/hooks";
 import { OrderItem } from "../components";
+import box from "../assets/empty_box.png";
 
 const Order: FunctionComponent = () => {
   const orders = useAppSelector((state) => state.order.orders);
@@ -11,7 +12,7 @@ const Order: FunctionComponent = () => {
   const CloseIcon = memo(() => <FaArrowLeft />);
 
   return (
-    <div className="basket__container">
+    <div className="container">
       <Link to="/">
         <button className="basketClose">
           <CloseIcon />
@@ -20,9 +21,14 @@ const Order: FunctionComponent = () => {
 
       <h1>Покупки</h1>
 
-      {orders.map((item, index) => (
-        <OrderItem item={item} index={index} />
-      ))}
+      {orders.length ? (
+        orders.map((item, index) => <OrderItem item={item} index={index} />)
+      ) : (
+        <div className="emptyBox">
+          <img src={box} alt="emptyBox" />
+          <p>Заказов нет!</p>
+        </div>
+      )}
     </div>
   );
 };
