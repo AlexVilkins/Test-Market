@@ -1,6 +1,6 @@
 import { FunctionComponent, useState, useEffect } from "react";
 
-import { Header, Card, Footer, ProductLoader } from "../components";
+import { Header, Card, ProductLoader } from "../components";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { featchProducts } from "../redux/products/asyncAction";
 
